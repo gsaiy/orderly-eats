@@ -130,12 +130,10 @@ const CartPage = () => {
         </div>
 
         {/* Checkout */}
-        <button
-          onClick={() => toast.success("Order placed successfully! 🎉")}
-          className="w-full mt-6 h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity"
-        >
-          Place Order · ₹{total}
-        </button>
+        <Link to="/checkout"
+          className="w-full mt-6 h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center">
+          Proceed to Checkout · ₹{total}
+        </Link>
       </main>
     </div>
   );
