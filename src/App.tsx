@@ -4,10 +4,21 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import RestaurantPage from "./pages/RestaurantPage";
 import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrdersPage from "./pages/OrdersPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
 import InstamartPage from "./pages/InstamartPage";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import RestaurantDashboard from "./pages/dashboard/RestaurantDashboard";
+import DeliveryDashboard from "./pages/dashboard/DeliveryDashboard";
+import AdminDashboard from "./pages/dashboard/AdminDashboard";
+import InstamartDashboard from "./pages/dashboard/InstamartDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -15,19 +26,38 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/restaurant/:id" element={<RestaurantPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/instamart" element={<InstamartPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Customer */}
+              <Route path="/" element={<Index />} />
+              <Route path="/restaurant/:id" element={<RestaurantPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/order/:id" element={<OrderDetailPage />} />
+              <Route path="/instamart" element={<InstamartPage />} />
+              {/* Auth */}
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
+              {/* Dashboards */}
+              <Route path="/dashboard/restaurant" element={<RestaurantDashboard />} />
+              <Route path="/dashboard/restaurant/*" element={<RestaurantDashboard />} />
+              <Route path="/dashboard/delivery" element={<DeliveryDashboard />} />
+              <Route path="/dashboard/delivery/*" element={<DeliveryDashboard />} />
+              <Route path="/dashboard/admin" element={<AdminDashboard />} />
+              <Route path="/dashboard/admin/*" element={<AdminDashboard />} />
+              <Route path="/dashboard/instamart" element={<InstamartDashboard />} />
+              <Route path="/dashboard/instamart/*" element={<InstamartDashboard />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
