@@ -9,8 +9,11 @@ import Index from "./pages/Index";
 import RestaurantPage from "./pages/RestaurantPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import PaymentPage from "./pages/PaymentPage";
 import OrdersPage from "./pages/OrdersPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
+import OrderTrackingPage from "./pages/OrderTrackingPage";
+import FeedbackPage from "./pages/FeedbackPage";
 import InstamartPage from "./pages/InstamartPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -37,8 +40,11 @@ const App = () => (
               <Route path="/restaurant/:id" element={<RestaurantPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
               <Route path="/orders" element={<OrdersPage />} />
               <Route path="/order/:id" element={<OrderDetailPage />} />
+              <Route path="/track/:id" element={<OrderTrackingPage />} />
+              <Route path="/feedback/:id" element={<FeedbackPage />} />
               <Route path="/instamart" element={<InstamartPage />} />
               {/* Auth */}
               <Route path="/login" element={<LoginPage />} />

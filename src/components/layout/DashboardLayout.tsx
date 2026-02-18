@@ -17,7 +17,7 @@ const DashboardLayout: React.FC<{ title: string; items: NavItem[]; children: Rea
         <div className="p-4 border-b border-border">
           <Link to="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-gradient-hero flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-extrabold text-sm">S</span>
+              <span className="text-primary-foreground font-display font-extrabold text-sm">C</span>
             </div>
             <span className="font-display font-bold text-foreground">{title}</span>
           </Link>
@@ -52,7 +52,7 @@ const DashboardLayout: React.FC<{ title: string; items: NavItem[]; children: Rea
       <div className="flex-1 flex flex-col min-w-0">
         <header className="md:hidden sticky top-0 z-50 bg-card shadow-card flex items-center h-14 px-4 gap-3">
           <Link to="/" className="h-8 w-8 rounded-lg bg-gradient-hero flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-extrabold text-sm">S</span>
+            <span className="text-primary-foreground font-display font-extrabold text-sm">C</span>
           </Link>
           <span className="font-display font-bold text-foreground flex-1">{title}</span>
           <button onClick={() => { logout(); navigate("/"); }} className="text-destructive"><LogOut className="h-4 w-4" /></button>

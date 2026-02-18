@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Users, Store, ShoppingBag, TrendingUp, Shield, ShieldOff, Eye } from "lucide-react";
+import { Users, Store, ShoppingBag, TrendingUp, Shield, ShieldOff, Eye, MessageSquare, Check, X, AlertTriangle } from "lucide-react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { mockOrders, mockAllUsers } from "@/data/mockOrders";
+import { mockOrders, mockAllUsers, mockComplaints, mockPendingRestaurants } from "@/data/mockOrders";
 import { restaurants } from "@/data/mockData";
 import { toast } from "sonner";
 
@@ -10,11 +10,19 @@ const navItems = [
   { label: "Users", path: "/dashboard/admin/users", icon: <Users className="h-4 w-4" /> },
   { label: "Restaurants", path: "/dashboard/admin/restaurants", icon: <Store className="h-4 w-4" /> },
   { label: "Orders", path: "/dashboard/admin/orders", icon: <ShoppingBag className="h-4 w-4" /> },
+  { label: "Approvals", path: "/dashboard/admin/approvals", icon: <Check className="h-4 w-4" /> },
+  { label: "Complaints", path: "/dashboard/admin/complaints", icon: <MessageSquare className="h-4 w-4" /> },
 ];
 
 const AdminDashboard = () => {
-  const [tab, setTab] = useState<"overview" | "users" | "restaurants" | "orders">("overview");
+  const [tab, setTab] = useState<"overview" | "users" | "restaurants" | "orders" | "approvals" | "complaints">("overview");
   const totalRevenue = mockOrders.filter((o) => o.paymentStatus === "paid").reduce((s, o) => s + o.total, 0);
+
+  const complaintStatusColors: Record<string, string> = {
+    open: "bg-destructive/10 text-destructive",
+    in_progress: "bg-warning/10 text-warning",
+    resolved: "bg-accent/10 text-accent",
+  };
 
   return (
     <DashboardLayout title="Admin" items={navItems}>
@@ -32,8 +40,8 @@ const AdminDashboard = () => {
         ))}
       </div>
 
-      <div className="flex gap-2 mb-4">
-        {(["overview", "users", "restaurants", "orders"] as const).map((t) => (
+      <div className="flex gap-2 mb-4 flex-wrap">
+        {(["overview", "users", "restaurants", "orders", "approvals", "complaints"] as const).map((t) => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-xl text-sm font-medium capitalize transition-colors ${tab === t ? "bg-foreground text-card" : "bg-secondary text-secondary-foreground"}`}>
             {t}
@@ -50,6 +58,8 @@ const AdminDashboard = () => {
               <div className="flex justify-between text-foreground"><span>Active partners</span><span>{mockAllUsers.filter((u) => u.role === "delivery" && u.status === "active").length}</span></div>
               <div className="flex justify-between text-foreground"><span>Completed orders</span><span>{mockOrders.filter((o) => o.orderStatus === "delivered").length}</span></div>
               <div className="flex justify-between text-foreground"><span>Cancelled orders</span><span>{mockOrders.filter((o) => o.orderStatus === "cancelled").length}</span></div>
+              <div className="flex justify-between text-foreground"><span>Open complaints</span><span>{mockComplaints.filter((c) => c.status === "open").length}</span></div>
+              <div className="flex justify-between text-foreground"><span>Pending approvals</span><span>{mockPendingRestaurants.filter((r) => r.status === "pending").length}</span></div>
             </div>
           </div>
           <div className="p-4 rounded-xl bg-card shadow-card">
@@ -116,6 +126,80 @@ const AdminDashboard = () => {
                 <span className={`text-[10px] font-bold capitalize ${o.orderStatus === "delivered" ? "text-accent" : o.orderStatus === "cancelled" ? "text-destructive" : "text-warning"}`}>
                   {o.orderStatus}
                 </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {tab === "approvals" && (
+        <div className="space-y-3">
+          <h3 className="font-display font-bold text-sm text-foreground">Restaurant Registration Requests</h3>
+          {mockPendingRestaurants.map((r) => (
+            <div key={r.id} className="p-4 rounded-xl bg-card shadow-card">
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <p className="font-display font-bold text-foreground">{r.name}</p>
+                  <p className="text-xs text-muted-foreground">Owner: {r.owner} · {r.cuisine}</p>
+                  <p className="text-xs text-muted-foreground">{r.email} · {r.phone}</p>
+                  <p className="text-xs text-muted-foreground mt-1">Applied: {r.appliedAt}</p>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-1 rounded-full capitalize ${
+                  r.status === "pending" ? "bg-warning/10 text-warning" : "bg-accent/10 text-accent"
+                }`}>{r.status}</span>
+              </div>
+              {r.status === "pending" && (
+                <div className="flex gap-2 mt-3">
+                  <button onClick={() => toast.success(`${r.name} approved!`)}
+                    className="flex-1 h-9 rounded-xl bg-accent text-accent-foreground text-sm font-medium flex items-center justify-center gap-1.5">
+                    <Check className="h-3 w-3" /> Approve
+                  </button>
+                  <button onClick={() => toast.error(`${r.name} rejected`)}
+                    className="flex-1 h-9 rounded-xl bg-destructive/10 text-destructive text-sm font-medium flex items-center justify-center gap-1.5">
+                    <X className="h-3 w-3" /> Reject
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {tab === "complaints" && (
+        <div className="space-y-3">
+          <h3 className="font-display font-bold text-sm text-foreground">Customer Complaints</h3>
+          {mockComplaints.map((c) => (
+            <div key={c.id} className="p-4 rounded-xl bg-card shadow-card">
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <p className="font-display font-bold text-sm text-foreground">{c.subject}</p>
+                  <p className="text-xs text-muted-foreground">{c.id} · {c.userName} · Order {c.orderId}</p>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-1 rounded-full capitalize ${complaintStatusColors[c.status] || ""}`}>
+                  {c.status.replace("_", " ")}
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{c.description}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">{c.createdAt}</span>
+                {c.status === "open" && (
+                  <div className="flex gap-2">
+                    <button onClick={() => toast.success("Complaint marked in progress")}
+                      className="px-3 py-1.5 rounded-lg bg-warning/10 text-warning text-xs font-medium hover:bg-warning hover:text-warning-foreground transition-colors">
+                      Investigate
+                    </button>
+                    <button onClick={() => toast.success("Complaint resolved")}
+                      className="px-3 py-1.5 rounded-lg bg-accent/10 text-accent text-xs font-medium hover:bg-accent hover:text-accent-foreground transition-colors">
+                      Resolve
+                    </button>
+                  </div>
+                )}
+                {c.status === "in_progress" && (
+                  <button onClick={() => toast.success("Complaint resolved")}
+                    className="px-3 py-1.5 rounded-lg bg-accent/10 text-accent text-xs font-medium hover:bg-accent hover:text-accent-foreground transition-colors">
+                    Mark Resolved
+                  </button>
+                )}
               </div>
             </div>
           ))}

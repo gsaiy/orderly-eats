@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Minus, Plus, Trash2, ArrowLeft, Tag, ShoppingBag } from "lucide-react";
+import { Minus, Plus, Trash2, ArrowLeft, Tag, ShoppingBag, LogIn } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { coupons } from "@/data/mockData";
 import Header from "@/components/layout/Header";
 import { useState } from "react";
@@ -12,6 +13,7 @@ const CartPage = () => {
     appliedCoupon, applyCoupon, removeCoupon,
     subtotal, deliveryFee, tax, discount, total,
   } = useCart();
+  const { isAuthenticated } = useAuth();
   const [couponInput, setCouponInput] = useState("");
 
   const handleApplyCoupon = () => {
@@ -52,6 +54,22 @@ const CartPage = () => {
             Clear all
           </button>
         </div>
+
+        {/* Guest login prompt */}
+        {!isAuthenticated && (
+          <div className="mb-4 p-4 rounded-xl bg-warning/10 border border-warning/20">
+            <div className="flex items-center gap-3">
+              <LogIn className="h-5 w-5 text-warning shrink-0" />
+              <div className="flex-1">
+                <p className="font-medium text-sm text-foreground">Please sign in to place your order</p>
+                <p className="text-xs text-muted-foreground mt-0.5">You can browse and add items, but login is required to checkout</p>
+              </div>
+              <Link to="/login" className="shrink-0 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
+                Sign In
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Items */}
         <div className="space-y-3">
@@ -130,10 +148,17 @@ const CartPage = () => {
         </div>
 
         {/* Checkout */}
-        <Link to="/checkout"
-          className="w-full mt-6 h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center">
-          Proceed to Checkout · ₹{total}
-        </Link>
+        {isAuthenticated ? (
+          <Link to="/checkout"
+            className="w-full mt-6 h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center">
+            Proceed to Checkout · ₹{total}
+          </Link>
+        ) : (
+          <Link to="/login"
+            className="w-full mt-6 h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center">
+            Sign In to Place Order
+          </Link>
+        )}
       </main>
     </div>
   );
