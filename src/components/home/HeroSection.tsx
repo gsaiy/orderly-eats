@@ -10,7 +10,7 @@ const HeroSection = () => {
           className="w-full h-full object-cover"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/75 to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 md:px-16">
           <h1 className="font-display font-extrabold text-2xl sm:text-4xl md:text-5xl text-primary-foreground leading-tight max-w-md">
             Don't Wait,
