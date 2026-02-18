@@ -10,14 +10,15 @@ import { SlidersHorizontal } from "lucide-react";
 type SortOption = "relevance" | "rating" | "deliveryTime" | "costLow" | "costHigh";
 
 const Index = () => {
-  const [activeCuisine, setActiveCuisine] = useState("All");
+  const [activeCuisine, setActiveCuisine] = useState("🍽️ All");
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
   const [vegOnly, setVegOnly] = useState(false);
 
   const filtered = useMemo(() => {
     let list = restaurants;
-    if (activeCuisine !== "All") {
-      list = list.filter((r) => r.cuisine.some((c) => c.toLowerCase().includes(activeCuisine.toLowerCase())));
+    if (activeCuisine !== "🍽️ All") {
+      const cuisineName = activeCuisine.replace(/^[\p{Emoji}\s]+/u, "").trim();
+      list = list.filter((r) => r.cuisine.some((c) => c.toLowerCase().includes(cuisineName.toLowerCase())));
     }
     if (vegOnly) list = list.filter((r) => r.isVeg);
     if (sortBy === "rating") list = [...list].sort((a, b) => b.rating - a.rating);
