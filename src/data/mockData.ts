@@ -37,8 +37,8 @@ export interface InstamartItem {
 }
 
 export const cuisineFilters = [
-  "All", "Biryani", "Pizza", "Burger", "Chinese", "North Indian",
-  "South Indian", "Desserts", "Ice Cream", "Rolls", "Cakes"
+  "🍽️ All", "🍛 Biryani", "🍕 Pizza", "🍔 Burger", "🥡 Chinese", "🫓 North Indian",
+  "🥘 South Indian", "🍰 Desserts", "🍦 Ice Cream", "🌯 Rolls", "🎂 Cakes"
 ];
 
 export const restaurants: Restaurant[] = [
