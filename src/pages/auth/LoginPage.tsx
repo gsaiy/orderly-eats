@@ -30,9 +30,9 @@ const LoginPage = () => {
       <div className="w-full max-w-sm">
         <Link to="/" className="flex items-center gap-2 justify-center mb-8">
           <div className="h-10 w-10 rounded-xl bg-gradient-hero flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-extrabold text-lg">S</span>
+            <span className="text-primary-foreground font-display font-extrabold text-lg">C</span>
           </div>
-          <span className="font-display font-bold text-2xl text-foreground">Swigato</span>
+          <span className="font-display font-bold text-2xl text-foreground">Cravit</span>
         </Link>
 
         <div className="bg-card rounded-2xl shadow-card p-6">
@@ -74,7 +74,7 @@ const LoginPage = () => {
             <p className="text-[10px] text-muted-foreground text-center mb-2">Demo accounts (password: password)</p>
             <div className="grid grid-cols-2 gap-1.5">
               {["customer", "restaurant", "delivery", "instamart", "admin"].map((r) => (
-                <button key={r} onClick={() => { setEmail(`${r}@swigato.com`); setPassword("password"); }}
+                <button key={r} onClick={() => { setEmail(`${r}@cravit.com`); setPassword("password"); }}
                   className="text-[10px] px-2 py-1 rounded border text-muted-foreground hover:border-primary hover:text-primary transition-colors capitalize">
                   {r}
                 </button>

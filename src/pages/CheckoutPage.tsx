@@ -14,26 +14,16 @@ const paymentMethods = [
 ];
 
 const CheckoutPage = () => {
-  const { items, subtotal, deliveryFee, tax, discount, total, clearCart } = useCart();
+  const { items, subtotal, deliveryFee, tax, discount, total } = useCart();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [selectedAddress, setSelectedAddress] = useState(mockAddresses[0].id);
   const [selectedPayment, setSelectedPayment] = useState("upi");
-  const [processing, setProcessing] = useState(false);
   const [newAddress, setNewAddress] = useState("");
   const [showNewAddr, setShowNewAddr] = useState(false);
 
   if (items.length === 0) { navigate("/cart"); return null; }
-
-  const handlePlaceOrder = () => {
-    if (!isAuthenticated) { toast.error("Please login first"); navigate("/login"); return; }
-    setProcessing(true);
-    setTimeout(() => {
-      clearCart();
-      toast.success("Order placed successfully! 🎉");
-      navigate("/orders");
-    }, 1500);
-  };
+  if (!isAuthenticated) { navigate("/login"); return null; }
 
   return (
     <div className="min-h-screen bg-background">
@@ -81,7 +71,7 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* Payment */}
+        {/* Payment method selection */}
         <div className="p-4 rounded-xl bg-card shadow-card mb-4">
           <div className="flex items-center gap-2 mb-3">
             <CreditCard className="h-4 w-4 text-primary" />
@@ -120,10 +110,10 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        <button onClick={handlePlaceOrder} disabled={processing}
-          className="w-full h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity disabled:opacity-50">
-          {processing ? "Processing..." : `Pay ₹${total}`}
-        </button>
+        <Link to="/payment"
+          className="w-full h-12 rounded-xl bg-gradient-hero text-primary-foreground font-display font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center">
+          Proceed to Pay · ₹{total}
+        </Link>
       </main>
     </div>
   );

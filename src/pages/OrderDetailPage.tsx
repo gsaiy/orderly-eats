@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, MapPin, Phone, Star, Download, RotateCcw, XCircle } from "lucide-react";
+import { ArrowLeft, MapPin, Phone, Star, Download, RotateCcw, XCircle, Navigation } from "lucide-react";
 import Header from "@/components/layout/Header";
 import { mockOrders } from "@/data/mockOrders";
 import { toast } from "sonner";
@@ -23,6 +23,7 @@ const OrderDetailPage = () => {
   );
 
   const currentStep = order.orderStatus === "cancelled" ? -1 : statusSteps.indexOf(order.orderStatus);
+  const isActive = currentStep >= 0 && currentStep < 4;
 
   return (
     <div className="min-h-screen bg-background">
@@ -32,10 +33,16 @@ const OrderDetailPage = () => {
           <Link to="/orders" className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center">
             <ArrowLeft className="h-4 w-4 text-foreground" />
           </Link>
-          <div>
+          <div className="flex-1">
             <h1 className="font-display font-bold text-xl text-foreground">{order.restaurantName}</h1>
             <p className="text-xs text-muted-foreground">{order.id}</p>
           </div>
+          {isActive && (
+            <Link to={`/track/${order.id}`}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-accent text-accent-foreground text-sm font-medium hover:opacity-90">
+              <Navigation className="h-3.5 w-3.5" /> Track
+            </Link>
+          )}
         </div>
 
         {/* Timeline */}
@@ -134,14 +141,19 @@ const OrderDetailPage = () => {
         )}
 
         {/* Actions */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <button onClick={() => toast.success("Invoice downloaded!")} className="flex-1 h-10 rounded-xl bg-secondary text-secondary-foreground font-medium text-sm flex items-center justify-center gap-2">
             <Download className="h-4 w-4" /> Invoice
           </button>
           {order.orderStatus === "delivered" && (
-            <button onClick={() => toast.success("Items added to cart!")} className="flex-1 h-10 rounded-xl bg-gradient-hero text-primary-foreground font-medium text-sm flex items-center justify-center gap-2">
-              <RotateCcw className="h-4 w-4" /> Reorder
-            </button>
+            <>
+              <button onClick={() => toast.success("Items added to cart!")} className="flex-1 h-10 rounded-xl bg-gradient-hero text-primary-foreground font-medium text-sm flex items-center justify-center gap-2">
+                <RotateCcw className="h-4 w-4" /> Reorder
+              </button>
+              <Link to={`/feedback/${order.id}`} className="flex-1 h-10 rounded-xl bg-warning/10 text-warning font-medium text-sm flex items-center justify-center gap-2">
+                <Star className="h-4 w-4" /> Feedback
+              </Link>
+            </>
           )}
           {(order.orderStatus === "placed" || order.orderStatus === "accepted") && (
             <button onClick={() => toast.info("Order cancelled. Refund initiated.")} className="flex-1 h-10 rounded-xl bg-destructive text-destructive-foreground font-medium text-sm flex items-center justify-center gap-2">

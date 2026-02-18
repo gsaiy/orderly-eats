@@ -13,10 +13,10 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 md:px-16">
           <h1 className="font-display font-extrabold text-2xl sm:text-4xl md:text-5xl text-primary-foreground leading-tight max-w-md">
-            Hungry?
+            Don't Wait,
             <br />
             <span className="text-gradient-hero bg-gradient-to-r from-warning to-primary bg-clip-text" style={{ WebkitTextFillColor: 'transparent' }}>
-              Order food now!
+              Grab It!
             </span>
           </h1>
           <p className="mt-2 text-primary-foreground/80 text-sm sm:text-base max-w-sm">

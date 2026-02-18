@@ -23,11 +23,11 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const mockUsers: Record<string, User & { password: string }> = {
-  "customer@swigato.com": { id: "u1", name: "Rahul Sharma", email: "customer@swigato.com", phone: "9876543210", role: "customer", password: "password" },
-  "restaurant@swigato.com": { id: "u2", name: "Priya Patel", email: "restaurant@swigato.com", phone: "9876543211", role: "restaurant", password: "password" },
-  "delivery@swigato.com": { id: "u3", name: "Amit Kumar", email: "delivery@swigato.com", phone: "9876543212", role: "delivery", password: "password" },
-  "instamart@swigato.com": { id: "u4", name: "Neha Singh", email: "instamart@swigato.com", phone: "9876543213", role: "instamart", password: "password" },
-  "admin@swigato.com": { id: "u5", name: "Admin User", email: "admin@swigato.com", phone: "9876543214", role: "admin", password: "password" },
+  "customer@cravit.com": { id: "u1", name: "Rahul Sharma", email: "customer@cravit.com", phone: "9876543210", role: "customer", password: "password" },
+  "restaurant@cravit.com": { id: "u2", name: "Priya Patel", email: "restaurant@cravit.com", phone: "9876543211", role: "restaurant", password: "password" },
+  "delivery@cravit.com": { id: "u3", name: "Amit Kumar", email: "delivery@cravit.com", phone: "9876543212", role: "delivery", password: "password" },
+  "instamart@cravit.com": { id: "u4", name: "Neha Singh", email: "instamart@cravit.com", phone: "9876543213", role: "instamart", password: "password" },
+  "admin@cravit.com": { id: "u5", name: "Admin User", email: "admin@cravit.com", phone: "9876543214", role: "admin", password: "password" },
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

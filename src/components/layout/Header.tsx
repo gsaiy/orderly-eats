@@ -23,9 +23,9 @@ const Header = () => {
       <div className="container flex h-16 items-center gap-4">
         <Link to="/" className="flex items-center gap-2 shrink-0">
           <div className="h-8 w-8 rounded-lg bg-gradient-hero flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-extrabold text-sm">S</span>
+            <span className="text-primary-foreground font-display font-extrabold text-sm">C</span>
           </div>
-          <span className="font-display font-bold text-xl text-foreground hidden sm:block">Swigato</span>
+          <span className="font-display font-bold text-xl text-foreground hidden sm:block">Cravit</span>
         </Link>
 
         <button className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors shrink-0">

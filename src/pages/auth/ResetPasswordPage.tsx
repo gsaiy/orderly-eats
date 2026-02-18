@@ -17,9 +17,9 @@ const ResetPasswordPage = () => {
       <div className="w-full max-w-sm">
         <Link to="/" className="flex items-center gap-2 justify-center mb-8">
           <div className="h-10 w-10 rounded-xl bg-gradient-hero flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-extrabold text-lg">S</span>
+            <span className="text-primary-foreground font-display font-extrabold text-lg">C</span>
           </div>
-          <span className="font-display font-bold text-2xl text-foreground">Swigato</span>
+          <span className="font-display font-bold text-2xl text-foreground">Cravit</span>
         </Link>
         <div className="bg-card rounded-2xl shadow-card p-6">
           <h1 className="font-display font-bold text-xl text-foreground mb-1">Reset Password</h1>

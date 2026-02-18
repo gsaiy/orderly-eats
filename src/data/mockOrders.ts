@@ -166,11 +166,23 @@ export const mockOrders: Order[] = [
 ];
 
 export const mockAllUsers = [
-  { id: "u1", name: "Rahul Sharma", email: "customer@swigato.com", role: "customer", status: "active", orders: 15 },
-  { id: "u2", name: "Priya Patel", email: "restaurant@swigato.com", role: "restaurant", status: "active", orders: 0 },
-  { id: "u3", name: "Amit Kumar", email: "delivery@swigato.com", role: "delivery", status: "active", orders: 42 },
-  { id: "u4", name: "Neha Singh", email: "instamart@swigato.com", role: "instamart", status: "active", orders: 0 },
-  { id: "u5", name: "Admin User", email: "admin@swigato.com", role: "admin", status: "active", orders: 0 },
+  { id: "u1", name: "Rahul Sharma", email: "customer@cravit.com", role: "customer", status: "active", orders: 15 },
+  { id: "u2", name: "Priya Patel", email: "restaurant@cravit.com", role: "restaurant", status: "active", orders: 0 },
+  { id: "u3", name: "Amit Kumar", email: "delivery@cravit.com", role: "delivery", status: "active", orders: 42 },
+  { id: "u4", name: "Neha Singh", email: "instamart@cravit.com", role: "instamart", status: "active", orders: 0 },
+  { id: "u5", name: "Admin User", email: "admin@cravit.com", role: "admin", status: "active", orders: 0 },
   { id: "u6", name: "Ravi Verma", email: "ravi@example.com", role: "customer", status: "blocked", orders: 3 },
   { id: "u7", name: "Sanjay Gupta", email: "sanjay@example.com", role: "delivery", status: "active", orders: 28 },
+];
+
+export const mockComplaints = [
+  { id: "CMP001", userId: "u1", userName: "Rahul Sharma", orderId: "ORD003", subject: "Late delivery", description: "Order was delivered 30 minutes late", status: "open" as const, createdAt: "2025-02-09" },
+  { id: "CMP002", userId: "u6", userName: "Ravi Verma", orderId: "ORD002", subject: "Wrong items received", description: "Received pasta instead of pizza", status: "resolved" as const, createdAt: "2025-02-12" },
+  { id: "CMP003", userId: "u1", userName: "Rahul Sharma", orderId: "ORD001", subject: "Food quality issue", description: "Biryani was cold when delivered", status: "in_progress" as const, createdAt: "2025-02-11" },
+];
+
+export const mockPendingRestaurants = [
+  { id: "pr1", name: "Spice Garden", owner: "Vikram Singh", cuisine: "North Indian, Mughlai", email: "vikram@spicegarden.com", phone: "9876500001", appliedAt: "2025-02-13", status: "pending" as const },
+  { id: "pr2", name: "Sushi House", owner: "Kenji Tanaka", cuisine: "Japanese, Sushi", email: "kenji@sushihouse.com", phone: "9876500002", appliedAt: "2025-02-14", status: "pending" as const },
+  { id: "pr3", name: "Taco Bell Express", owner: "Maria Lopez", cuisine: "Mexican, Fast Food", email: "maria@tacobell.com", phone: "9876500003", appliedAt: "2025-02-10", status: "approved" as const },
 ];
