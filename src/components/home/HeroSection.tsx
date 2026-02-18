@@ -15,8 +15,8 @@ const HeroSection = () => {
           <h1 className="font-display font-extrabold text-2xl sm:text-4xl md:text-5xl text-primary-foreground leading-tight max-w-md">
             Don't Wait,
             <br />
-            <span className="text-gradient-hero bg-gradient-to-r from-warning to-primary bg-clip-text" style={{ WebkitTextFillColor: 'transparent' }}>
-              Grab It!
+            <span className="text-gradient-gold">
+              Grab It! ✨
             </span>
           </h1>
           <p className="mt-2 text-primary-foreground/80 text-sm sm:text-base max-w-sm">
