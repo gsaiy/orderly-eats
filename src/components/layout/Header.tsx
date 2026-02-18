@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, MapPin, ShoppingCart, User, ChevronDown, LogOut, LayoutDashboard, ClipboardList } from "lucide-react";
+import { Search, MapPin, ShoppingCart, User, ChevronDown, LogOut, LayoutDashboard, ClipboardList, Moon, Sun } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,18 @@ const Header = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => document.documentElement.classList.contains("dark"));
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const dashboardPath = user?.role === "restaurant" ? "/dashboard/restaurant"
     : user?.role === "delivery" ? "/dashboard/delivery"
@@ -44,6 +55,12 @@ const Header = () => {
         </div>
 
         <nav className="flex items-center gap-1">
+          <button onClick={() => setDarkMode(!darkMode)}
+            className="flex items-center justify-center h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            aria-label="Toggle dark mode">
+            {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
           <Link to="/instamart" className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
             Instamart
           </Link>
